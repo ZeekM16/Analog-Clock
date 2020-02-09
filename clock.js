@@ -1,17 +1,30 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var radiusc = canvas.clientHeight / 2;
-
-// re maps x & y axis to center of canvas
+var radius = canvas.height / 2;
 ctx.translate(radius, radius);
-
-//Reduces clock radius
 radius = radius * 0.90
+drawClock();
 
 
-//Draws face of the clock
 function drawClock(){
-    ctx.arc(0,0,radius,0,2*Math.PI);
-    ctx.fillstyle = "white";
+   drawFace(ctx, radius);
+}
+
+function drawFace(){
+    var grad;
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, 2*Math.PI);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+    grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+    grad.addColorStop(0, '#333');
+    grad.addColorStop(0.5, 'white');
+    grad.addColorStop(1, '#333');
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = radius*0.1;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0,0, radius*0.1, 0, 2*Math.PI);
+    ctx.fillStyle = '#333';
     ctx.fill();
 }
