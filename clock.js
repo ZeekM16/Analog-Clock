@@ -3,7 +3,7 @@ var ctx = canvas.getContext("2d");
 var radius = canvas.height / 2;
 ctx.translate(radius, radius);
 radius = radius * 0.90
-drawClock();
+setInterval(drawClock, 1000);
 
 
 function drawClock(){
@@ -62,9 +62,20 @@ function drawTime(ctx, radius){
     drawHand(ctx, hour, radius*0.5, radius*0.07);
 
     minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
-    drawHand(ctx, hour, radius*0.8, radius*0.07);
+    drawHand(ctx, minute, radius*0.8, radius*0.07);
 
     second=(second*Math.PI/30);
-    drawHand(ctx, hour, radius*0.9, radius*0.02);
+    drawHand(ctx, second, radius*0.9, radius*0.02);
 
+}
+
+function drawHand(ctx, pos, length, width){
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
 }
